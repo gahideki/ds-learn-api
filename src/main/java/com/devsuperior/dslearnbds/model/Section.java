@@ -1,11 +1,8 @@
 package com.devsuperior.dslearnbds.model;
 
-import com.devsuperior.dslearnbds.model.enums.ResourceType;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -13,8 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "tb_resource")
-public class Resource {
+@Table(name = "tb_section")
+public class Section {
 
     @EqualsAndHashCode.Include
     @Id
@@ -29,14 +26,12 @@ public class Resource {
 
     private String imgUri;
 
-    @Enumerated(EnumType.STRING)
-    private ResourceType type;
+    @ManyToOne
+    @JoinColumn(name = "resource_id")
+    private Resource resource;
 
     @ManyToOne
-    @JoinColumn(name = "offer_id")
-    private Offer offer;
-
-    @OneToMany(mappedBy = "resource")
-    private List<Section> sections = new ArrayList<>();
+    @JoinColumn(name = "pre_requisite_id")
+    private Section preRequisite;
 
 }
