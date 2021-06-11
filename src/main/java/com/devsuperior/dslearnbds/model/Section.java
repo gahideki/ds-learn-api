@@ -1,12 +1,15 @@
 package com.devsuperior.dslearnbds.model;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -33,5 +36,8 @@ public class Section {
     @ManyToOne
     @JoinColumn(name = "pre_requisite_id")
     private Section preRequisite;
+
+    @OneToMany(mappedBy = "section")
+    private List<Lesson> lessons;
 
 }
