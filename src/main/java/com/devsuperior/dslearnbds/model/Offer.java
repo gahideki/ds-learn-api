@@ -23,8 +23,10 @@ public class Offer {
 
     private String edition;
 
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant startMoment;
 
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private Instant endMoment;
 
     @ManyToOne
