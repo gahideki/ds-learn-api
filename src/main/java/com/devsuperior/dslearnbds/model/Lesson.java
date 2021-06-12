@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -38,6 +40,9 @@ public abstract class Lesson {
                     @JoinColumn(name = "offer_id")
             })
     private Set<Enrollment> enrollmentsDone = new HashSet<>();
+
+    @OneToMany(mappedBy = "lesson")
+    private List<Deliver> deliveries = new ArrayList<>();
 
     public Lesson(Long id, String title, Integer position, Section section) {
         this.id = id;

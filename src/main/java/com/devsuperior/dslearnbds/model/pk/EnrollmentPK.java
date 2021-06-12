@@ -1,17 +1,13 @@
 package com.devsuperior.dslearnbds.model.pk;
 
-import com.devsuperior.dslearnbds.model.Lesson;
 import com.devsuperior.dslearnbds.model.Offer;
 import com.devsuperior.dslearnbds.model.User;
 import lombok.*;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -30,8 +26,5 @@ public class EnrollmentPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "offer_id")
     private Offer offerId;
-
-    @ManyToMany(mappedBy = "enrollmentsDone")
-    private Set<Lesson> lessonsDone = new HashSet<>();
 
 }

@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,6 +21,7 @@ import java.time.Instant;
 @Table(name = "tb_enrollment")
 public class Enrollment {
 
+    @EqualsAndHashCode.Include
     @EmbeddedId
     private EnrollmentPK id = new EnrollmentPK();
 
@@ -31,6 +33,12 @@ public class Enrollment {
 
     private Boolean available;
     private Boolean onlyUpdate;
+
+    @ManyToMany(mappedBy = "enrollmentsDone")
+    private Set<Lesson> lessonsDone = new HashSet<>();
+
+    @OneToMany(mappedBy = "enrollment")
+    private List<Deliver> deliveries = new ArrayList<>();
 
     public Enrollment(User user, Offer offer, Instant enrollMoment, Instant refundMoment, Boolean available, Boolean onlyUpdate) {
         this.id.setUserId(user);
