@@ -1,7 +1,9 @@
 package com.devsuperior.dslearnbds.controller.error;
 
 import com.devsuperior.dslearnbds.service.exception.DatabaseException;
+import com.devsuperior.dslearnbds.service.exception.ForbiddenException;
 import com.devsuperior.dslearnbds.service.exception.ResourceNotFoundException;
+import com.devsuperior.dslearnbds.service.exception.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -38,6 +40,18 @@ public class ApiExceptionHandler {
         standardError.setMessage(ex.getMessage());
         standardError.setPath(request.getRequestURI());
         return ResponseEntity.status(badRequest).body(standardError);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<OAuthCustomError> forbidden(ForbiddenException ex, HttpServletRequest request) {
+        OAuthCustomError oAuthCustomError = new OAuthCustomError("Forbidden", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(oAuthCustomError);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<OAuthCustomError> unauthorized(UnauthorizedException ex, HttpServletRequest request) {
+        OAuthCustomError oAuthCustomError = new OAuthCustomError("Unauthorized", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(oAuthCustomError);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
