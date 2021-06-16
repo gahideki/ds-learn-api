@@ -24,6 +24,7 @@ public class Deliver {
 
     private Instant moment;
 
+    @Enumerated(EnumType.STRING)
     private DeliverStatus status;
 
     private String feedback;
